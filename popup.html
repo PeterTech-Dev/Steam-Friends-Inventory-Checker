@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Steam Extension Settings</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 300px;
+      padding: 15px;
+      background: #1b1b1b;
+      color: #eee;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      background: #2a2a2a;
+      color: #eee;
+      box-sizing: border-box;
+    }
+
+    button, .button-link {
+      margin-top: 10px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-sizing: border-box;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #saveBtn {
+      background: none;
+      border: 2px solid #00c2cb;
+      color: #00c2cb;
+      transition: all 0.3s ease;
+    }
+
+    #saveBtn:hover {
+      background-color: #00c2cb;
+      color: #1b1b1b;
+    }
+
+    #saveBtn i {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #saveBtn.saved i {
+      opacity: 1;
+      color: #00ff95;
+    }
+
+    .toggle {
+      background: #555;
+      color: white;
+    }
+
+    .toggle:hover {
+      background-color: #4a4a4a;
+    }
+
+    .button-link {
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+    }
+
+    .button-link:hover {
+      background-color: #004288;
+    }
+
+    #toast {
+      display: none;
+      margin-top: 15px;
+      padding: 8px 12px;
+      text-align: center;
+      background-color: #333;
+      color: #9f9;
+      font-size: 14px;
+      border-radius: 5px;
+      animation: fade 2s ease-in-out forwards;
+    }
+
+    @keyframes fade {
+      0% { opacity: 0; transform: translateY(5px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(5px); }
+    }
+  </style>
+</head>
+<body>
+  <h3>Steam API Key</h3>
+  <input type="password" id="apiKey" placeholder="Enter your Steam API key">
+  <button id="saveBtn">
+    💾 Save API Key
+    <i class="fa-solid fa-check"></i>
+  </button>
+  <button id="toggleView" class="toggle">👁 Show API Key</button>
+  <a class="button-link" href="https://steamcommunity.com/dev/apikey" target="_blank">🔑 Find API Key</a>
+  <div id="toast">✅ API Key saved!</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

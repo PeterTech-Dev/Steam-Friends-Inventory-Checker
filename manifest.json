@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Steam Inventory Extension",
+  "version": "1.0",
+  "description": "Displays CS2, TF2, Rust, and Dota inventory values on friends list.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://steamcommunity.com/*",
+    "https://api.steampowered.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Setup Steam API Key"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://steamcommunity.com/*/friends*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "prices/*.json",
+        "icons/*.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/cs2.png",
+    "48": "icons/cs2.png",
+    "128": "icons/cs2.png"
+  }
+}
