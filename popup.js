@@ -20,27 +20,28 @@ chrome.storage.local.get("steamApiKey", (data) => {
 // Save key
 saveBtn.addEventListener("click", () => {
   const entered = apiKeyInput.value.trim();
-  const isFake = apiKeyInput.type === "password" && entered !== realKey;
 
-  if (entered.length === 32 && !isFake) {
-    chrome.storage.local.set({ steamApiKey: entered }, () => {
-      realKey = entered;
-      apiKeyInput.type = "password";
-      apiKeyInput.value = realKey;
-      isMasked = true;
-      toggleView.textContent = "👁 Show API Key";
-
-      // Feedback
-      showToast();
-      saveBtn.classList.add("saved");
-      setTimeout(() => saveBtn.classList.remove("saved"), 2000);
-    });
-  } else if (isFake) {
-    showToast("⚠️ API key already saved.");
-  } else {
-    showToast("❌ Invalid API key. Must be 32 characters.", true);
+  if (entered.length !== 32) {
+    showStatus("❌ Invalid API key. Must be 32 characters.", false);
+    return;
   }
+
+  chrome.storage.local.get("steamApiKey", (data) => {
+    if (data.steamApiKey === entered) {
+      showStatus("⚠️ This API key is already saved.", false);
+    } else {
+      chrome.storage.local.set({ steamApiKey: entered }, () => {
+        realKey = entered;
+        isMasked = true;
+        apiKeyInput.type = "password";
+        apiKeyInput.value = realKey;
+        toggleView.textContent = "👁 Show API Key";
+        showStatus("✅ API key saved!", true);
+      });
+    }
+  });
 });
+
 
 // Show/hide API key
 toggleView.addEventListener("click", () => {
@@ -51,13 +52,11 @@ toggleView.addEventListener("click", () => {
   toggleView.textContent = isMasked ? "👁 Show API Key" : "🙈 Hide API Key";
 });
 
-function showToast(message = "✅ API Key saved!", isError = false) {
-  toast.textContent = message;
-  toast.style.color = isError ? "#f66" : "#9f9";
-  toast.style.display = "block";
-  toast.style.animation = "fade 2s ease-in-out";
-
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 2000);
+function showStatus(message, isSuccess = true) {
+  const box = document.getElementById("statusMsg");
+  box.textContent = message;
+  box.className = isSuccess ? "success" : "error";
+  box.style.display = "block";
+  setTimeout(() => box.style.display = "none", 4000);
 }
+
