@@ -82,17 +82,19 @@
       background-color: #004288;
     }
 
-    #toast {
-      display: none;
-      margin-top: 15px;
-      padding: 8px 12px;
-      text-align: center;
-      background-color: #333;
-      color: #9f9;
-      font-size: 14px;
+    #statusMsg {
+      padding: 6px 10px;
+      margin-top: 8px;
       border-radius: 5px;
-      animation: fade 2s ease-in-out forwards;
+      font-weight: bold;
+      background: #333;
+      color: #eee;
+      text-align: center;
+      display: none;
     }
+    #statusMsg.success { background-color: #2e7d32; color: #c8f7c5; }
+    #statusMsg.error { background-color: #7d2e2e; color: #ffcdd2; }
+
 
     @keyframes fade {
       0% { opacity: 0; transform: translateY(5px); }
@@ -111,7 +113,7 @@
   </button>
   <button id="toggleView" class="toggle">👁 Show API Key</button>
   <a class="button-link" href="https://steamcommunity.com/dev/apikey" target="_blank">🔑 Find API Key</a>
-  <div id="toast">✅ API Key saved!</div>
+  <div id="statusMsg" style="margin-top: 10px; font-size: 13px;"></div>
 
   <script src="popup.js"></script>
 </body>
